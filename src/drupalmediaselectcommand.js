@@ -23,8 +23,7 @@ export default class DrupalMediaSelectCommand extends TemplateCommandBase {
 	 * @inheritDoc
 	 */
 	execute( values ) {
-		console.log( values );
-		this._mediaSelector( values.operation, uuid => {
+		this._mediaSelector( this.currentElement.getAttribute( 'data-media-type' ), values.operation, uuid => {
 			if ( uuid === this.currentElement.getAttribute( 'data-media-uuid' ) ) {
 				return;
 			}

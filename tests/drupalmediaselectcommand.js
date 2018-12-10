@@ -24,7 +24,7 @@ describe( 'DrupalMediaSelectCommand', () => {
 						template: '<div class="media" ck-type="drupal-media" data-media-uuid=""></div>',
 					},
 				},
-				drupalMediaSelector( operation, callback ) {
+				drupalMediaSelector( type, operation, callback ) {
 					callback( operation );
 				}
 			} )
