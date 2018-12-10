@@ -21,7 +21,7 @@ ClassicEditor
 				template: '<div class="simple" ck-type="drupal-media" data-media-uuid=""></div>',
 			},
 		},
-		drupalMediaSelector( operation, callback ) {
+		drupalMediaSelector( type, operation, callback ) {
 			callback( operation === 'add' ? '300' : '400' );
 		},
 		drupalMediaRenderer( uuid, display, callback ) {
