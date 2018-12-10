@@ -4,23 +4,6 @@
 	--ck-drupal-media-loader-color: #4a4a4a;
 }
 
-.ck-drupal-media-widget {
-	position: relative;
-}
-
-.ck-drupal-media-buttons {
-	border-radius: var(--ck-border-radius);
-	background: rgba(255, 255, 255, 0.7);
-	padding: 0.2em;
-	position: absolute;
-	bottom: 1em;
-	right: 1em;
-}
-
-.ck-drupal-media-buttons > *:not(:last-child) {
-	margin-right: 0.2em;
-}
-
 .ck-drupal-media-placeholder {
 	padding-bottom: 50%;
 	border: 2px solid var(--ck-drupal-media-stripe-a);
@@ -37,12 +20,17 @@
 }
 
 .ck-drupal-media-loader {
+	display: none;
 	opacity: 0.6;
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	margin-top: -2em;
 	margin-left: -0.5em;
+}
+
+.ck-drupal-media-loading .ck-drupal-media-loader {
+	display: block;
 }
 
 .ck-drupal-media-loader,
@@ -76,9 +64,11 @@
 	-webkit-animation-delay: -0.32s;
 	animation-delay: -0.32s;
 }
+
 .ck-drupal-media-loader:after {
 	left: 1.5em;
 }
+
 @-webkit-keyframes load1 {
 	0%,
 	80%,
