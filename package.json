@@ -1,5 +1,5 @@
 {
-  "name": "ckeditor5-drupal-media",
+  "name": "@amazee/ckeditor5-drupal-media",
   "version": "0.0.1",
   "description": "Drupal media library integration for CKEditor 5.",
   "keywords": [
