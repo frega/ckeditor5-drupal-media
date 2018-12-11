@@ -1,6 +1,6 @@
 {
   "name": "@amazee/ckeditor5-drupal-media",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Drupal media library integration for CKEditor 5.",
   "keywords": [
     "ckeditor",
@@ -28,7 +28,7 @@
     "@ckeditor/ckeditor5-theme-lark": "^12.0.0",
     "@ckeditor/ckeditor5-typing": "^11.0.2",
     "@ckeditor/ckeditor5-undo": "^10.0.4",
-    "eslint": "^5.10.0",
+    "eslint": "^5.5.0",
     "eslint-config-ckeditor5": "^1.0.7",
     "husky": "^0.14.3",
     "lint-staged": "^7.0.0"
