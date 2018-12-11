@@ -1,4 +1,4 @@
-import TemplateCommandBase from 'ckeditor5-template/src/commands/templatecommandbase';
+import TemplateCommandBase from '@amazee/ckeditor5-template/src/commands/templatecommandbase';
 
 /**
  * Select a Drupal media element.

@@ -1,9 +1,9 @@
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
-import TemplateEditing from 'ckeditor5-template/src/templateediting';
+import TemplateEditing from '@amazee/ckeditor5-template/src/templateediting';
 import ViewPosition from '@ckeditor/ckeditor5-engine/src/view/position';
 
 import { downcastAttributeToAttribute } from '@ckeditor/ckeditor5-engine/src/conversion/downcast-converters';
-import { downcastTemplateElement, getModelAttributes } from 'ckeditor5-template/src/utils/conversion';
+import { downcastTemplateElement, getModelAttributes } from '@amazee/ckeditor5-template/src/utils/conversion';
 import { toWidget } from '@ckeditor/ckeditor5-widget/src/utils';
 
 import '../theme/css/media.css';

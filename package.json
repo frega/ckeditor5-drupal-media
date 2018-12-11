@@ -15,7 +15,7 @@
     "@ckeditor/ckeditor5-ui": "^11.2.0",
     "@ckeditor/ckeditor5-utils": "^11.1.0",
     "@ckeditor/ckeditor5-widget": "^10.3.1",
-    "@amazee/ckeditor5-template": "^0.0.1"
+    "@amazee/ckeditor5-template": "^0.0.2"
   },
   "devDependencies": {
     "@ckeditor/ckeditor5-basic-styles": "^10.1.0",

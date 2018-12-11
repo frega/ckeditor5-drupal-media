@@ -8,7 +8,7 @@ import HeadingPlugin from '@ckeditor/ckeditor5-heading/src/heading';
 import UndoPlugin from '@ckeditor/ckeditor5-undo/src/undo';
 
 import DrupalMediaEditing from '../../src/drupalmediaediting';
-import TemplateUI from 'ckeditor5-template/src/ui/templateui';
+import TemplateUI from '@amazee/ckeditor5-template/src/ui/templateui';
 import DrupalMediaUI from '../../src/drupalmediaui';
 
 ClassicEditor
