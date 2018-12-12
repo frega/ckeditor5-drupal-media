@@ -18,7 +18,7 @@ ClassicEditor
 		templates: {
 			media: {
 				label: 'Media',
-				template: '<div class="simple" ck-type="drupal-media" data-media-uuid=""></div>',
+				template: '<div class="simple" ck-type="drupal-media" data-media-uuid="" data-media-type="image"></div>',
 			},
 		},
 		drupalMediaSelector( type, operation, callback ) {

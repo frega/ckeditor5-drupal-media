@@ -1,7 +1,6 @@
 import global from '@ckeditor/ckeditor5-utils/src/dom/global';
-import { setData as setModelData, getData as getModelData } from '@ckeditor/ckeditor5-engine/src/dev-utils/model';
+import { getData as getModelData } from '@ckeditor/ckeditor5-engine/src/dev-utils/model';
 import { getData as getViewData } from '@ckeditor/ckeditor5-engine/src/dev-utils/view';
-import Widget from '@ckeditor/ckeditor5-widget/src/widget';
 
 import TemplateEditing from '../src/drupalmediaediting';
 import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
@@ -19,7 +18,9 @@ describe( 'DrupalMediaEditing', () => {
 				templates: {
 					media: {
 						label: 'Media',
-						template: '<div class="media" ck-type="drupal-media" data-media-uuid="" data-media-display="original"></div>',
+						template: '<div class="media" ck-type="drupal-media" ' +
+							'data-media-uuid="" data-media-type="image" ' +
+							'data-media-display="original"></div>',
 					},
 				},
 				drupalMediaRenderer( uuid, display, callback ) {
