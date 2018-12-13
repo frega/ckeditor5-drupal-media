@@ -7,6 +7,7 @@ import { downcastTemplateElement, getModelAttributes } from '@amazee/ckeditor5-t
 import { toWidget } from '@ckeditor/ckeditor5-widget/src/utils';
 
 import '../theme/css/media.css';
+import { postfixTemplateElement } from '@amazee/ckeditor5-template/src/utils/integrity';
 
 /**
  * Drupal media integration for CKEditor templates.
@@ -30,6 +31,8 @@ export default class DrupalMediaEditing extends Plugin {
 
 	init() {
 		this._mediaRenderer = this.editor.config.get( 'drupalMediaRenderer' );
+
+		this.editor.templates.registerPostFixer( [ 'drupal-media' ], postfixTemplateElement );
 
 		this.editor.conversion.for( 'editingDowncast' ).add( downcastAttributeToAttribute( {
 			model: 'data-media-uuid',

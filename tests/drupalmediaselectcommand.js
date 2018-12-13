@@ -51,6 +51,6 @@ describe( 'DrupalMediaSelectCommand', () => {
 	it( 'selects an entity using the correct operation', () => {
 		setModelData( model, '[<ck__media></ck__media>]' );
 		command.execute( { operation: 'a' } );
-		expect( getModelData( model ) ).to.equal( '[<ck__media data-media-uuid="image:a"></ck__media>]' );
+		expect( getModelData( model ) ).to.equal( '[<ck__media data-media-type="image" data-media-uuid="image:a"></ck__media>]' );
 	} );
 } );
