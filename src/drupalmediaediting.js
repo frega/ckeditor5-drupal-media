@@ -2,7 +2,6 @@ import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
 import TemplateEditing from '@amazee/ckeditor5-template/src/templateediting';
 import ViewPosition from '@ckeditor/ckeditor5-engine/src/view/position';
 
-import { downcastAttributeToAttribute } from '@ckeditor/ckeditor5-engine/src/conversion/downcast-converters';
 import { downcastTemplateElement, getModelAttributes } from '@amazee/ckeditor5-template/src/utils/conversion';
 import { toWidget } from '@ckeditor/ckeditor5-widget/src/utils';
 
@@ -30,11 +29,11 @@ export default class DrupalMediaEditing extends Plugin {
 	}
 
 	init() {
-		this._mediaRenderer = this.editor.config.get( 'drupalMediaRenderer' );
+		this._mediaRenderer = this.editor.config.get( 'drupalMediaRenderer' ).callback;
 
 		this.editor.templates.registerPostFixer( [ 'drupal-media' ], postfixTemplateElement );
 
-		this.editor.conversion.for( 'editingDowncast' ).add( downcastAttributeToAttribute( {
+		this.editor.conversion.for( 'editingDowncast' ).attributeToAttribute( {
 			model: 'data-media-uuid',
 			view: ( value, data ) => {
 				if ( value === null ) {
@@ -59,7 +58,7 @@ export default class DrupalMediaEditing extends Plugin {
 					previewDomElement.querySelector( '.ck-drupal-media-wrapper' ).innerHTML = preview;
 				} );
 			},
-		} ) );
+		} );
 
 		// Default editing downcast conversions for template container elements without functionality.
 		this.editor.conversion.for( 'editingDowncast' ).add( downcastTemplateElement( this.editor, {
@@ -84,7 +83,7 @@ export default class DrupalMediaEditing extends Plugin {
 
 				return toWidget( container, viewWriter );
 			}
-		} ), { priority: 'low ' } );
+		} ), { converterPriority: 'low ' } );
 	}
 
 	_preview( id, display ) {

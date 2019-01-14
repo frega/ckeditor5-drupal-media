@@ -9,7 +9,7 @@ export default class DrupalMediaSelectCommand extends TemplateCommandBase {
 	 */
 	constructor( editor ) {
 		super( editor );
-		this._mediaSelector = editor.config.get( 'drupalMediaSelector' );
+		this._mediaSelector = editor.config.get( 'drupalMediaSelector' ).callback;
 	}
 
 	/**

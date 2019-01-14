@@ -29,9 +29,9 @@ describe( 'DrupalMediaEditing', () => {
 							'data-media-display="original"></div>',
 					},
 				},
-				drupalMediaRenderer( uuid, display, callback ) {
+				drupalMediaRenderer: { callback: ( uuid, display, callback ) => {
 					callback( `<p>Preview for ${ uuid } in ${ display } display.</p>` );
-				}
+				} }
 			} )
 			.then( newEditor => {
 				editor = newEditor;

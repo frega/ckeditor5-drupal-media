@@ -22,10 +22,10 @@ describe( 'DrupalMediaSelectCommand', () => {
 						template: '<div class="media" ck-type="drupal-media" data-media-type="image" data-media-uuid=""></div>',
 					},
 				},
-				drupalMediaSelector( type, operation, callback ) {
+				drupalMediaSelector: { callback: ( type, operation, callback ) => {
 					callback( `${ type }:${ operation }` );
 				}
-			} )
+				} } )
 			.then( newEditor => {
 				editor = newEditor;
 				model = editor.model;
