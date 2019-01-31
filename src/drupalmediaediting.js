@@ -3,7 +3,7 @@ import TemplateEditing from '@amazee/ckeditor5-template/src/templateediting';
 import ViewPosition from '@ckeditor/ckeditor5-engine/src/view/position';
 
 import { downcastTemplateElement, getModelAttributes } from '@amazee/ckeditor5-template/src/utils/conversion';
-import { toWidget } from '@ckeditor/ckeditor5-widget/src/utils';
+import { toDrupalMediaWidget } from './utils';
 
 import '../theme/css/media.css';
 import { postfixTemplateElement } from '@amazee/ckeditor5-template/src/utils/integrity';
@@ -81,7 +81,7 @@ export default class DrupalMediaEditing extends Plugin {
 
 				viewWriter.insert( new ViewPosition( container, 0 ), media );
 
-				return toWidget( container, viewWriter );
+				return toDrupalMediaWidget( container, viewWriter );
 			}
 		} ), { converterPriority: 'low ' } );
 	}
