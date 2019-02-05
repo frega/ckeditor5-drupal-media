@@ -2,6 +2,8 @@ import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
 import WidgetToolbarRepository from '@ckeditor/ckeditor5-widget/src/widgettoolbarrepository';
 import ButtonView from '@ckeditor/ckeditor5-ui/src/button/buttonview';
 
+import { getSelectedDrupalMediaViewWidget } from './utils';
+
 import DrupalMediaEditing from './drupalmediaediting';
 import DrupalMediaSelectCommand from './drupalmediaselectcommand';
 
@@ -52,7 +54,7 @@ export default class DrupalMediaUI extends Plugin {
 		const widgetToolbarRepository = this.editor.plugins.get( WidgetToolbarRepository );
 		widgetToolbarRepository.register( 'drupalMedia', {
 			items: [ 'drupalMedia:select', 'drupalMedia:upload' ],
-			visibleWhen: () => this.command.isEnabled,
+			getRelatedElement: getSelectedDrupalMediaViewWidget
 		} );
 	}
 }
