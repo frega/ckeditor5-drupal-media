@@ -28,7 +28,7 @@ export default class DrupalMediaUI extends Plugin {
 		this.editor.ui.componentFactory.add( 'drupalMedia:select', locale => {
 			const view = new ButtonView();
 			view.set( {
-				label: locale.t( 'Select media' ),
+				label: locale.t( 'Select from media gallery' ),
 				icon: SelectIcon,
 				tooltip: true,
 			} );
