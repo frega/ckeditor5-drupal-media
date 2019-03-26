@@ -11,9 +11,34 @@ import DrupalMediaEditing from '../../src/drupalmediaediting';
 import TemplateUI from '@amazee/ckeditor5-template/src/ui/templateui';
 import DrupalMediaUI from '../../src/drupalmediaui';
 
+// The editor creator to use.
+import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
+import Placeholder from '@amazee/editor-components/components/placeholder/placeholder';
+import Media from '@amazee/editor-components/components/media/media';
+import DrupalMediaResetCommand from '../../src/drupalmediaresetcommand';
+
+class PlaceholderConfig extends Plugin {
+	init() {
+		const templates = this.editor.config.get( 'templates' );
+		Placeholder.availableSections = Object.keys( templates )
+			.map( id => ( { id, label: templates[ id ].label, icon: templates[ id ].icon } ) );
+		Media.previewCallback = this.editor.config.get( 'drupalMediaRenderer' ).callback;
+	}
+}
+
 ClassicEditor
 	.create( document.querySelector( '#editor' ), {
-		plugins: [ EnterPlugin, TypingPlugin, ParagraphPlugin, HeadingPlugin, TemplateUI, DrupalMediaEditing, DrupalMediaUI, UndoPlugin ],
+		plugins: [
+			EnterPlugin,
+			TypingPlugin,
+			ParagraphPlugin,
+			HeadingPlugin,
+			TemplateUI,
+			DrupalMediaEditing,
+			DrupalMediaUI,
+			UndoPlugin,
+			PlaceholderConfig
+		],
 		toolbar: [ 'heading', '|', 'template', '|', 'undo', 'redo' ],
 		templates: {
 			media: {
@@ -21,13 +46,22 @@ ClassicEditor
 				template: '<div class="simple" ck-type="drupal-media" data-media-uuid="" data-media-type="image"></div>',
 			},
 		},
-		drupalMediaSelector( type, operation, callback ) {
-			callback( operation === 'add' ? '300' : '400' );
+		masterTemplate: 'root',
+		drupalMediaSelector: {
+			callback: ( type, operation, callback ) => {
+				callback( operation === 'add' ? '300' : '400' );
+			},
 		},
-		drupalMediaRenderer( uuid, display, callback ) {
-			window.setTimeout( () => {
-				callback( `<img src="https://picsum.photos/800/${ uuid }"/>` );
-			}, 2000 );
+		drupalMediaRenderer: {
+			callback: ( uuid, display, callback ) => {
+				if ( uuid === DrupalMediaResetCommand.EMPTY_MEDIA_UUID ) {
+					callback( '' );
+				} else {
+					window.setTimeout( () => {
+						callback( `<img src="https://picsum.photos/800/${ uuid }"/>` );
+					}, 2000 );
+				}
+			}
 		},
 	} )
 	.then( editor => {

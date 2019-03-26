@@ -17,6 +17,8 @@
     "@ckeditor/ckeditor5-widget": "^10.3.1"
   },
   "devDependencies": {
+    "@amazee/ckeditor5-template": "^0.0.27",
+    "@amazee/editor-components": "https://github.com/AmazeeLabs/editor-components",
     "@ckeditor/ckeditor5-basic-styles": "^10.1.0",
     "@ckeditor/ckeditor5-editor-classic": "^11.0.2",
     "@ckeditor/ckeditor5-enter": "^10.1.3",
