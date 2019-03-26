@@ -10,6 +10,7 @@ export default class DrupalMediaSelectCommand extends TemplateCommandBase {
 	constructor( editor ) {
 		super( editor );
 		this._mediaSelector = editor.config.get( 'drupalMediaSelector' ).callback;
+		this._entitySelector = editor.config.get( 'drupalEntitySelector' ).callback;
 	}
 
 	/**
@@ -22,15 +23,47 @@ export default class DrupalMediaSelectCommand extends TemplateCommandBase {
 	/**
 	 * @inheritDoc
 	 */
-	execute( values ) {
-		this._mediaSelector( this._currentElementInfo.attributes[ 'data-media-type' ], values.operation, uuid => {
-			if ( uuid === this.currentElement.getAttribute( 'data-media-uuid' ) ) {
-				return;
-			}
+	refresh() {
+		this.updateCurrentlySelectedElement();
+		this.isEnabled = !!this._currentElement;
 
-			this.editor.model.change( writer => {
-				writer.setAttribute( 'data-media-uuid', uuid, this.currentElement );
+		if ( this.isEnabled && this._currentElement.getAttribute( 'data-entity-type' ) ) {
+			this.isMediaEnabled = false;
+			this.isEntityEnabled = true;
+		} else if ( this.isEnabled ) {
+			this.isMediaEnabled = true;
+			this.isEntityEnabled = false;
+		}
+		this.isApplicable = this.isEnabled;
+		if ( this._currentElement ) {
+			this.currentTemplateLabel = this.editor.templates.getElementInfo( this._currentElement.name ).label;
+		}
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	execute( values ) {
+		if ( this._currentElementInfo.attributes[ 'data-entity-type' ] ) {
+			this._entitySelector( this._currentElementInfo.attributes[ 'data-entity-type' ], values.operation, uuid => {
+				if ( uuid === this.currentElement.getAttribute( 'data-entity-uuid' ) ) {
+					return;
+				}
+
+				this.editor.model.change( writer => {
+					writer.setAttribute( 'data-entity-uuid', uuid, this.currentElement );
+				} );
 			} );
-		} );
+		} else {
+			this._mediaSelector( this._currentElementInfo.attributes[ 'data-media-type' ], values.operation, uuid => {
+				if ( uuid === this.currentElement.getAttribute( 'data-media-uuid' ) ) {
+					return;
+				}
+
+				this.editor.model.change( writer => {
+					writer.setAttribute( 'data-media-uuid', uuid, this.currentElement );
+				} );
+			} );
+		}
 	}
 }
