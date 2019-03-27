@@ -46,13 +46,30 @@ export default class DrupalMediaUI extends Plugin {
 			this.listenTo( view, 'execute', () => this.editor.execute( 'drupalMediaSelect', { operation: 'add' } ) );
 			return view;
 		} );
+
+		this.editor.ui.componentFactory.add( 'drupalEntity:select', locale => {
+			const view = new ButtonView();
+			view.set( {
+				label: locale.t( 'Select from content library' ),
+				icon: SelectIcon,
+				tooltip: true,
+			} );
+			view.bind( 'isEnabled' ).to( this.command, 'isEnabled' );
+			this.listenTo( view, 'execute', () => this.editor.execute( 'drupalMediaSelect', { operation: 'select' } ) );
+			return view;
+		} );
 	}
 
 	afterInit() {
 		const widgetToolbarRepository = this.editor.plugins.get( WidgetToolbarRepository );
 		widgetToolbarRepository.register( 'drupalMedia', {
 			items: [ 'drupalMedia:select', 'drupalMedia:upload' ],
-			visibleWhen: () => this.command.isEnabled,
+			visibleWhen: () => this.command.isMediaEnabled,
+		} );
+
+		widgetToolbarRepository.register( 'drupalEntity', {
+			items: [ 'drupalEntity:select' ],
+			visibleWhen: () => this.command.isEntityEnabled,
 		} );
 	}
 }

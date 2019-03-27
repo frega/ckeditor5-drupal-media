@@ -37,6 +37,11 @@ export default class DrupalMediaEditing extends Plugin {
 			view: 'data-media-uuid',
 		} ) );
 
+		this.editor.conversion.for( 'editingDowncast' ).add( downcastAttributeToAttribute( {
+			model: 'data-entity-uuid',
+			view: 'data-entity-uuid',
+		} ) );
+
 		// Default editing downcast conversions for template container elements without functionality.
 		this.editor.conversion.for( 'editingDowncast' ).add( downcastTemplateElement( this.editor, {
 			types: [ 'drupal-media' ],
