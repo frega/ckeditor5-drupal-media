@@ -24,7 +24,13 @@ describe( 'DrupalMediaSelectCommand', () => {
 				},
 				drupalMediaSelector: { callback: ( type, operation, callback ) => {
 					callback( `${ type }:${ operation }` );
-				}
+				},
+				},
+				drupalEntitySelector: {
+					// @todo: clarify what is intended here (atm, there's only "select" afaics.
+					callback: ( type, operation, callback ) => {
+						callback( operation === 'add' ? '100' : '200' );
+					},
 				} } )
 			.then( newEditor => {
 				editor = newEditor;
