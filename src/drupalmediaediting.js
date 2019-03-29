@@ -42,6 +42,7 @@ export default class DrupalMediaEditing extends Plugin {
 		} );
 
 		// Default editing downcast conversions for template container elements without functionality.
+		// @todo: determine if priority is correctly applied.
 		this.editor.conversion.for( 'editingDowncast' ).add( downcastTemplateElement( this.editor, {
 			types: [ 'drupal-media' ],
 			view: ( templateElement, modelElement, viewWriter ) => {
@@ -50,7 +51,8 @@ export default class DrupalMediaEditing extends Plugin {
 					getModelAttributes( templateElement, modelElement )
 				);
 				return toWidget( container, viewWriter );
-			}
-		} ), { priority: 'low ' } );
+			},
+			converterPriority: 'low'
+		} ) );
 	}
 }
