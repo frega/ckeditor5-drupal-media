@@ -4,6 +4,14 @@ import { getData as getViewData } from '@ckeditor/ckeditor5-engine/src/dev-utils
 
 import TemplateEditing from '../src/drupalmediaediting';
 import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
+import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
+import Media from '@amazee/editor-components/components/media/media';
+
+class PlaceholderConfig extends Plugin {
+	init() {
+		Media.previewCallback = this.editor.config.get( 'drupalMediaRenderer' ).callback;
+	}
+}
 
 describe( 'DrupalMediaEditing', () => {
 	let editorElement, model, view, editor;
@@ -14,7 +22,7 @@ describe( 'DrupalMediaEditing', () => {
 
 		return ClassicEditor
 			.create( editorElement, {
-				plugins: [ TemplateEditing ],
+				plugins: [ TemplateEditing, PlaceholderConfig ],
 				templates: {
 					media: {
 						label: 'Media',
@@ -76,15 +84,18 @@ describe( 'DrupalMediaEditing', () => {
 
 	it( 'renders a preview for defined uuids', done => {
 		editor.setData( '<div class="media" data-media-uuid="123" data-media-display="original"></div>' );
+
+		// Expect the webcomponent.
 		expect( getViewData( view ) ).to.equal(
-			'[<div class="ck-widget ck-widget_selected media" contenteditable="false" ' +
-			'data-media-display="original" data-media-type="image" ' +
-			'data-media-uuid="123"><div class="ck-drupal-media-preview"></div></div>]'
+			'[<ck-media class="ck-widget ck-widget_selected media" contenteditable="false" data-media-display="original" ' +
+			'data-media-type="image" data-media-uuid="123">' +
+			'</ck-media>]'
 		);
 
+		// Access the preview from within the web componet.
 		global.window.setTimeout( () => {
-			const docRoot = editor.editing.view.getDomRoot();
-			const preview = docRoot.querySelector( '.ck-drupal-media-wrapper' ).innerHTML;
+			const shadowRoot = editor.editing.view.getDomRoot().querySelector( 'ck-media' ).shadowRoot;
+			const preview = shadowRoot.querySelector( '.ck-media .ck-media__preview' ).innerHTML;
 			expect( preview ).to.equal( '<p>Preview for 123 in original display.</p>' );
 			done();
 		} );

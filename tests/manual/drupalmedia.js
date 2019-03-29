@@ -11,11 +11,12 @@ import DrupalMediaEditing from '../../src/drupalmediaediting';
 import TemplateUI from '@amazee/ckeditor5-template/src/ui/templateui';
 import DrupalMediaUI from '../../src/drupalmediaui';
 
+import Essentials from '@ckeditor/ckeditor5-essentials/src/essentials';
+
 // The editor creator to use.
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
 import Placeholder from '@amazee/editor-components/components/placeholder/placeholder';
 import Media from '@amazee/editor-components/components/media/media';
-import DrupalMediaResetCommand from '../../src/drupalmediaresetcommand';
 
 class PlaceholderConfig extends Plugin {
 	init() {
@@ -29,9 +30,10 @@ class PlaceholderConfig extends Plugin {
 ClassicEditor
 	.create( document.querySelector( '#editor' ), {
 		plugins: [
+			Essentials,
+			ParagraphPlugin,
 			EnterPlugin,
 			TypingPlugin,
-			ParagraphPlugin,
 			HeadingPlugin,
 			TemplateUI,
 			DrupalMediaEditing,
@@ -54,13 +56,9 @@ ClassicEditor
 		},
 		drupalMediaRenderer: {
 			callback: ( uuid, display, callback ) => {
-				if ( uuid === DrupalMediaResetCommand.EMPTY_MEDIA_UUID ) {
-					callback( '' );
-				} else {
-					window.setTimeout( () => {
-						callback( `<img src="https://picsum.photos/800/${ uuid }"/>` );
-					}, 2000 );
-				}
+				window.setTimeout( () => {
+					callback( `<img src="https://picsum.photos/800/${ uuid }"/>` );
+				}, 2000 );
 			}
 		},
 	} )
