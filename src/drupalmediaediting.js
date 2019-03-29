@@ -1,7 +1,6 @@
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
 import TemplateEditing from '@amazee/ckeditor5-template/src/templateediting';
 
-import { downcastAttributeToAttribute } from '@ckeditor/ckeditor5-engine/src/conversion/downcast-converters';
 import { downcastTemplateElement, getModelAttributes } from '@amazee/ckeditor5-template/src/utils/conversion';
 import { toWidget } from '@ckeditor/ckeditor5-widget/src/utils';
 
@@ -32,15 +31,15 @@ export default class DrupalMediaEditing extends Plugin {
 
 		this.editor.templates.registerPostFixer( [ 'drupal-media' ], postfixTemplateElement );
 
-		this.editor.conversion.for( 'editingDowncast' ).add( downcastAttributeToAttribute( {
+		this.editor.conversion.for( 'editingDowncast' ).attributeToAttribute( {
 			model: 'data-media-uuid',
 			view: 'data-media-uuid',
-		} ) );
+		} );
 
-		this.editor.conversion.for( 'editingDowncast' ).add( downcastAttributeToAttribute( {
+		this.editor.conversion.for( 'editingDowncast' ).attributeToAttribute( {
 			model: 'data-entity-uuid',
 			view: 'data-entity-uuid',
-		} ) );
+		} );
 
 		// Default editing downcast conversions for template container elements without functionality.
 		this.editor.conversion.for( 'editingDowncast' ).add( downcastTemplateElement( this.editor, {

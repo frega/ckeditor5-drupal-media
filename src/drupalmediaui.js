@@ -64,12 +64,27 @@ export default class DrupalMediaUI extends Plugin {
 		const widgetToolbarRepository = this.editor.plugins.get( WidgetToolbarRepository );
 		widgetToolbarRepository.register( 'drupalMedia', {
 			items: [ 'drupalMedia:select', 'drupalMedia:upload' ],
-			visibleWhen: () => this.command.isMediaEnabled,
+			getRelatedElement: selection => {
+				// @todo: verify this is the correct behavior.
+				const viewElement = selection.getSelectedElement();
+				if ( viewElement && viewElement.name === 'ck-media' ) {
+					return viewElement;
+				}
+				return null;
+			}
 		} );
 
 		widgetToolbarRepository.register( 'drupalEntity', {
 			items: [ 'drupalEntity:select' ],
-			visibleWhen: () => this.command.isEntityEnabled,
+			// visibleWhen: () => this.command.isEntityEnabled
+			getRelatedElement: selection => {
+				// @todo: verify this is the required/desired behavior.
+				const viewElement = selection.getSelectedElement();
+				if ( viewElement && viewElement.name === 'ck-media' ) {
+					return viewElement;
+				}
+				return null;
+			}
 		} );
 	}
 }
